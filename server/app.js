@@ -5,7 +5,8 @@ const schema = require('./schema/schema');
 const app = express();
 
 app.use('/graphql', graphqlHTTP({  // middleware
-    schema
+    schema,  // can use the schema to map out the map
+    graphiql: true, // used for testing queries on server side
 }));
 
 app.listen(4000, () => {
