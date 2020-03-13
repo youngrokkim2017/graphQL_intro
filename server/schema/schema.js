@@ -97,6 +97,46 @@ const RootQuery = new GraphQLObjectType({  // this is how you jump into the grap
     })
 });
 
+const Mutation = new GraphQLObjectType({
+    name: 'Mutation',
+    fields: ({
+        addAuthor: {
+            type: AuthorType,
+            args: {
+                name: { type: GraphQLString },
+                age: { type: GraphQLInt }
+            },
+            resolve(parent, args) {
+                // this is our author model
+                let author = new Author({  
+                    name: args.name,
+                    age: args.age
+                });
+
+                return author.save();
+            },
+        },
+        addBook: {
+            type: BookType,
+            args: {
+                name: { type: GraphQLString },
+                genre: { type: GraphQLString },
+                authorId: { type: GraphQLID },
+            },
+            resolve(parent, arges) {
+                let book = new Book({
+                    name: args.name,
+                    genre: args.genre,
+                    authorId: this.args.authorId
+                });
+
+                return book.save();
+            },
+        },
+    })
+})
+
 module.exports = new GraphQLSchema({
-    query: RootQuery
+    query: RootQuery,
+    mutation: Mutation,
 });
