@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 // connecting to mongoDB
+// add mongoDB string and creds
 mongoose.connect('add mongoDB string here');
 mongoose.connection.once('open', () => {  // event listener
     console.log('connected to database');
