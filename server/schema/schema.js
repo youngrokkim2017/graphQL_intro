@@ -41,6 +41,9 @@ const BookType = new GraphQLObjectType({ // defined object type, book
             type: AuthorType,
             resolve(parent, args) {
                 // return _.find(authors, { id: parent.authorId });
+
+                // this will look through the author collection and find it by id
+                return Author.findById(parent.authorId);
             }
         },
     })
@@ -56,6 +59,9 @@ const AuthorType = new GraphQLObjectType({ // defined object type, author
             type: new GraphQLList(BookType),
             resolve(parent, args) {
                 // return _.filter(books, { authorId: parent.id })
+
+                // find looks through the book collection with the conditions
+                return Book.find({ authorId: parent.id })
             }
         }
     })
@@ -73,6 +79,9 @@ const RootQuery = new GraphQLObjectType({  // this is how you jump into the grap
                 // use the id arg and find the book
 
                 // return _.find(books, { id: args.id });
+
+                // find a book based on its id
+                return Book.findById(args.id);
             }
         },
         author: {
@@ -80,18 +89,25 @@ const RootQuery = new GraphQLObjectType({  // this is how you jump into the grap
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
                 // return _.find(authors, { id: args.id });
+
+                return Author.findById(args.id);
             }
         },
         books: {
             type: new GraphQLList(BookType),
             resolve(parent, args) {
                 // return books
+
+                // when you used the .find without arguments, it returns all 
+                return Book.find({});
             }
         },
         authors: {
             type: new GraphQLList(AuthorType),
             resolve(parent, args) {
                 // return authors
+
+                return Author.find({});
             }
         }
     })
