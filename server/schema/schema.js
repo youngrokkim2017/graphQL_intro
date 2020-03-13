@@ -6,6 +6,7 @@ const {
     GraphQLID,
     GraphQLInt,
     GraphQLList,
+    GraphQLNonNull, // this says a certain field is required
 } = graphql;
 
 const _ = require('lodash');
@@ -113,14 +114,14 @@ const RootQuery = new GraphQLObjectType({  // this is how you jump into the grap
     })
 });
 
-const Mutation = new GraphQLObjectType({
+const Mutation = new GraphQLObjectType({  // when you need to specify NON NULL
     name: 'Mutation',
     fields: ({
         addAuthor: {
             type: AuthorType,
             args: {
-                name: { type: GraphQLString },
-                age: { type: GraphQLInt }
+                name: { type: new GraphQLNonNull(GraphQLString) },
+                age: { type: new GraphQLNonNull(GraphQLInt) }
             },
             resolve(parent, args) {
                 // this is our author model
@@ -135,9 +136,9 @@ const Mutation = new GraphQLObjectType({
         addBook: {
             type: BookType,
             args: {
-                name: { type: GraphQLString },
-                genre: { type: GraphQLString },
-                authorId: { type: GraphQLID },
+                name: { type: new GraphQLNonNull(GraphQLString) },
+                genre: { type: new GraphQLNonNull(GraphQLString) },
+                authorId: { type: new GraphQLNonNull(GraphQLID) },
             },
             resolve(parent, arges) {
                 let book = new Book({
