@@ -1,17 +1,19 @@
 // import React, { Component } from "react";
 import React from "react";
-import { gql } from 'apollo-boost';
+// import { gql } from 'apollo-boost';
 import { graphql } from 'react-apollo'; // this helps bing apollo to react
 
-// Add a query, like in graphql
-const getBooksQuery = gql`
-    {
-        books {
-            name
-            id
-        }
-    }
-`
+// // Add a query, like in graphql
+// const getBooksQuery = gql`
+//     {
+//         books {
+//             name
+//             id
+//         }
+//     }
+// `
+
+import { getBooksQuery } from '../queries/queries';
 
 class BookList extends React.Component {
     // constructor(props) {
