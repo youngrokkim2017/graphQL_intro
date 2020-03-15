@@ -27,3 +27,4 @@ app.listen(4000, () => {
 
 
 // nodemon app
+// http://localhost:4000/graphql
