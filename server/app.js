@@ -24,3 +24,6 @@ app.use('/graphql', graphqlHTTP({  // middleware
 app.listen(4000, () => {
     console.log("now listening for requests on port 4000")
 });
+
+
+// nodemon app

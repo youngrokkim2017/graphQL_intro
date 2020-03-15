@@ -1,7 +1,7 @@
 // import React, { Component } from "react";
 import React from "react";
 // import { gql } from 'apollo-boost';
-import { graphql } from 'react-apollo'; // this helps bing apollo to react
+import { graphql, compose } from 'react-apollo'; // this helps bing apollo to react
 
 // // Add a query, like in graphql
 // const getAuthorsQuery = gql`
@@ -13,7 +13,7 @@ import { graphql } from 'react-apollo'; // this helps bing apollo to react
 //     }
 // `
 
-import { getAuthorsQuery } from "../queries/queries";
+import { getAuthorsQuery, addBookMutation } from "../queries/queries";
 
 class AddBook extends React.Component {
     constructor(props) {
@@ -27,7 +27,9 @@ class AddBook extends React.Component {
     }
 
     displayAuthors() {
-        var data = this.props.data;
+        // var data = this.props.data;
+        var data = this.props.getAuthorsQuery;
+        // console.log(this.props);
 
         if (data.loading) {
             return (
@@ -48,6 +50,8 @@ class AddBook extends React.Component {
         e.preventDefault();
 
         // console.log(this.state);
+
+        this.props.addBookMutation();
     }
 
     render() {
@@ -86,4 +90,8 @@ class AddBook extends React.Component {
     }
 }
 
-export default graphql(getAuthorsQuery)(AddBook);
+// export default graphql(getAuthorsQuery)(AddBook);
+export default compose(
+    graphql(getAuthorsQuery, { name: "getAuthorsQuery" }),
+    graphql(addBookMutation, { name: "addBookMutation" }),
+)(AddBook);
