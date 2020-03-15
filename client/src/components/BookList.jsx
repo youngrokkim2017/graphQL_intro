@@ -15,6 +15,9 @@ import { graphql } from 'react-apollo'; // this helps bing apollo to react
 
 import { getBooksQuery } from '../queries/queries';
 
+// components
+import BookDetails from './BookDetails';
+
 class BookList extends React.Component {
     // constructor(props) {
     //     super(props);
@@ -46,6 +49,7 @@ class BookList extends React.Component {
                 <ul id="book-list">
                     {this.displayBooks()}
                 </ul>
+                <BookDetails />
             </div>
         )
     }
